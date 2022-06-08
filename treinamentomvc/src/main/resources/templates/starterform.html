@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register New Starter</title>
+</head>
+<body>
+
+	<h1>Enter starter data:</h1>
+
+
+	<form method="POST" th:action="@{/starter}" th:object="${starter}">
+		Name: <input type="text" th:field="*{name}"></input><br> CPF: <input
+			type="text" th:field="*{cpf}"> </input><br> Age: <input
+			type="text" th:field="*{age}"></input> <br>
+		<button type="submit">Register</button>
+
+
+	</form>
+
+</body>
+</html>
