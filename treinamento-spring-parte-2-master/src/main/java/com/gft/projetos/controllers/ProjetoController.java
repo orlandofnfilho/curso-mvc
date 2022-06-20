@@ -19,98 +19,97 @@ import com.gft.projetos.services.LinguagemService;
 @Controller
 @RequestMapping("projeto")
 public class ProjetoController {
-	
+
 	@Autowired
 	private ProjetoService projetoService;
-	
+
 	@Autowired
 	private LinguagemService linguagemService;
-	
+
 	@Autowired
 	private DesenvolvedorService desenvolvedorService;
-	
+
 	@RequestMapping(path = "editar")
 	public ModelAndView editarProjeto(@RequestParam(required = false) Long id) {
-		
+
 		ModelAndView mv = new ModelAndView("projeto/form.html");
-		
+
 		Projeto projeto;
-		
-		if(id==null) {
+
+		if (id == null) {
 			projeto = new Projeto();
-		}else {
+		} else {
 			try {
 				projeto = projetoService.obterProjeto(id);
-			}catch(Exception e) {
+			} catch (Exception e) {
 				projeto = new Projeto();
 				mv.addObject("mensagem", e.getMessage());
 			}
 		}
-		
+
 		mv.addObject("projeto", projeto);
 		mv.addObject("listaLinguagens", linguagemService.listarLinguagem());
 		mv.addObject("listaDesenvolvedores", desenvolvedorService.listarDesenvolvedores());
-		
-		
+
 		return mv;
-		
+
 	}
-	
-	@RequestMapping(method = RequestMethod.POST , path = "editar")
+
+	@RequestMapping(method = RequestMethod.POST, path = "editar")
 	public ModelAndView salvarProjeto(@Valid Projeto projeto, BindingResult bindingResult) {
-		
+
 		ModelAndView mv = new ModelAndView("projeto/form.html");
-		
+
 		boolean novo = true;
-		
-		if(projeto.getId() != null) {
+
+		if (projeto.getId() != null) {
 			novo = false;
 		}
-		
-		if(bindingResult.hasErrors()) {
+
+		if (bindingResult.hasErrors()) {
 			mv.addObject("projeto", projeto);
 			return mv;
 		}
-		
+
 		projetoService.salvarProjeto(projeto);
-	
-		if(novo) {
+
+		if (novo) {
 			mv.addObject("projeto", new Projeto());
-		}else {
+		} else {
 			mv.addObject("projeto", projeto);
 		}
-		
+
 		mv.addObject("mensagem", "Projeto salvo com sucesso");
 		mv.addObject("listaLinguagens", linguagemService.listarLinguagem());
-		mv.addObject("listaDesenvolvedores", desenvolvedorService.listarDesenvolvedores());		
-		
+		mv.addObject("listaDesenvolvedores", desenvolvedorService.listarDesenvolvedores());
+
 		return mv;
-		
+
 	}
-	
+
 	@RequestMapping
 	public ModelAndView listarProjetos() {
-		
+
 		ModelAndView mv = new ModelAndView("projeto/listar.html");
-		
+
 		mv.addObject("lista", projetoService.listarProjetos());
-		
+
 		return mv;
-		
+
 	}
-	
+
 	@RequestMapping("/excluir")
 	public ModelAndView excluirProjeto(@RequestParam Long id, RedirectAttributes redirectAttributes) {
-		
+
 		ModelAndView mv = new ModelAndView("redirect:/projeto");
 
 		try {
-			 projetoService.excluirProjeto(id);
-			 redirectAttributes.addFlashAttribute("mensagem", "Projeto excluído com sucesso.");
-		}catch(Exception e) {
-			redirectAttributes.addFlashAttribute("mensagem", "Erro ao excluir projeto!"+e.getMessage());
+			projetoService.excluirProjeto(id);
+			redirectAttributes.addFlashAttribute("mensagem", "Projeto excluído com sucesso.");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("mensagem", "Erro ao excluir projeto!" + e.getMessage());
 		}
-				
+
 		return mv;
 	}
 

@@ -17,94 +17,90 @@ import com.gft.projetos.services.LinguagemService;
 @Controller
 @RequestMapping("linguagem")
 public class LinguagemController {
-	
+
 	@Autowired
 	private LinguagemService linguagemService;
-	
+
 	@RequestMapping(path = "novo") // http://localhost:8080/linguagem/novo
 	public ModelAndView novaLinguagem() {
-		
+
 		ModelAndView mv = new ModelAndView("linguagem/form.html");
 		mv.addObject("linguagem", new Linguagem());
-		
+
 		return mv;
-		
+
 	}
-	
-	@RequestMapping(method = RequestMethod.POST , path = "novo")
-	public ModelAndView salvarLinguagem(@Valid Linguagem linguagem, BindingResult bindingResult) {
-		
+
+	@RequestMapping("/editar")
+	public ModelAndView editarLinguagem(@RequestParam Long id) {
+
 		ModelAndView mv = new ModelAndView("linguagem/form.html");
-		
+		Linguagem linguagem;
+
+		try {
+			linguagem = linguagemService.obterLinguagem(id);
+		} catch (Exception e) {
+			linguagem = new Linguagem();
+			mv.addObject("mensagem", e.getMessage());
+		}
+
+		mv.addObject("linguagem", linguagem);
+
+		return mv;
+	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "novo")
+	public ModelAndView salvarLinguagem(@Valid Linguagem linguagem, BindingResult bindingResult) {
+
+		ModelAndView mv = new ModelAndView("linguagem/form.html");
+
 		boolean novo = true;
-		
-		if(linguagem.getId()!=null) {
+
+		if (linguagem.getId() != null) {
 			novo = false;
 		}
-		
-		if(bindingResult.hasErrors()) {
+
+		if (bindingResult.hasErrors()) {
 			mv.addObject("linguagem", linguagem);
 			return mv;
 		}
 
 		Linguagem linguagemSalva = linguagemService.salvarLinguagem(linguagem);
-		
-		if(novo) {
+
+		if (novo) {
 			mv.addObject("linguagem", new Linguagem());
-		}else {
+		} else {
 			mv.addObject("linguagem", linguagemSalva);
 		}
-		
-		
-		
+
 		mv.addObject("mensagem", "Linguagem salva com sucesso");
-		
-		
+
 		return mv;
-		
+
 	}
-	
+
 	@RequestMapping // http://localhost:8080/linguagem
 	public ModelAndView listarLinguagens() {
-		
+
 		ModelAndView mv = new ModelAndView("linguagem/listar.html");
 		mv.addObject("lista", linguagemService.listarLinguagem());
-		
-		
+
 		return mv;
-		
+
 	}
-	
-	@RequestMapping("/editar")
-	public ModelAndView editarLinguagem(@RequestParam Long id) {
-		
-		ModelAndView mv = new ModelAndView("linguagem/form.html");
-		Linguagem linguagem;
-		
-		try {
-			linguagem = linguagemService.obterLinguagem(id);
-		}catch(Exception e) {
-			linguagem = new Linguagem();
-			mv.addObject("mensagem", e.getMessage());
-		}
-		
-		mv.addObject("linguagem", linguagem);
-		
-		return mv;
-	}
-	
+
 	@RequestMapping("/excluir")
 	public ModelAndView excluirLinguagem(@RequestParam Long id, RedirectAttributes redirectAttributes) {
-		
+
 		ModelAndView mv = new ModelAndView("redirect:/linguagem");
 
 		try {
-			 linguagemService.excluirLinguagem(id);
-			 redirectAttributes.addFlashAttribute("mensagem", "Linguagem excluída com sucesso.");
-		}catch(Exception e) {
-			redirectAttributes.addFlashAttribute("mensagem", "Erro ao excluir linguagem!"+e.getMessage());
+			linguagemService.excluirLinguagem(id);
+			redirectAttributes.addFlashAttribute("mensagem", "Linguagem excluída com sucesso.");
+		} catch (Exception e) {
+			redirectAttributes.addFlashAttribute("mensagem", "Erro ao excluir linguagem!" + e.getMessage());
 		}
-				
+
 		return mv;
 	}
 

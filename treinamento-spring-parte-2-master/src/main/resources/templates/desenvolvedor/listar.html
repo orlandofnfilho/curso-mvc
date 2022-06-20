@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 <div layout:fragment="content">
 	<div class="alert alert-primary" th:if="${#lists.isEmpty(lista)}">
-		Nenhum desenvolvedor cadastrado
-	</div>
-	<div class="alert alert-primary" th:if="${mensagem != null}" th:text="${mensagem}"></div>
+		Nenhum desenvolvedor cadastrado</div>
+	<div class="alert alert-primary" th:if="${mensagem != null}"
+		th:text="${mensagem}"></div>
 	<div th:if="${not #lists.isEmpty(lista)}">
 		<table class="table table-striped">
 			<thead>
@@ -27,10 +27,14 @@
 					<td th:text="${desenvolvedor.nome}"></td>
 					<td th:text="${desenvolvedor.quatroLetras}"></td>
 					<td th:text="${desenvolvedor.email}"></td>
-					<td th:text="'R$' + ${#numbers.formatDecimal(desenvolvedor.salarioMensal, 0, 'POINT', 2, 'COMMA')}"></td>
+					<td
+						th:text="'R$' + ${#numbers.formatDecimal(desenvolvedor.salarioMensal, 0, 'POINT', 2, 'COMMA')}"></td>
 					<td th:text="${desenvolvedor.linguagem.nome}"></td>
-					<td><a class="btn btn-primary btn-sm" th:href="@{/desenvolvedor/editar(id=${desenvolvedor.id})}">Editar</a>
-					<a class="btn btn-primary btn-sm" th:href="@{/desenvolvedor/excluir(id=${desenvolvedor.id})}" onclick="return confirm('Você realmente deseja excluir esse desenvolvedor?')">Excluir</a>
+					<td><a class="btn btn-primary btn-sm"
+						th:href="@{/desenvolvedor/editar(id=${desenvolvedor.id})}">Editar</a>
+						<a class="btn btn-primary btn-sm"
+						th:href="@{/desenvolvedor/excluir(id=${desenvolvedor.id})}"
+						onclick="return confirm('Você realmente deseja excluir esse desenvolvedor?')">Excluir</a>
 					</td>
 				</tr>
 			</tbody>

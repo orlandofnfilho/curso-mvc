@@ -3,7 +3,7 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
-<title>Projetos GFT</title>
+<title>zStore</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -14,9 +14,9 @@
 </head>
 <body>
 	<div id="menu">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+		<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark mb-4">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="#">GFT</a>
+				<a class="navbar-brand" th:href="@{/index}">zStore</a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 					aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -26,35 +26,34 @@
 				<div class="collapse navbar-collapse" id="navbarNavDropdown">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#">Home</a></li>
+							aria-current="page" th:href="@{/index}">Home</a></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> Linguagens </a>
+							data-bs-toggle="dropdown" aria-expanded="false"> Categorias </a>
 							<ul class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
-								<li><a class="dropdown-item" th:href="@{/linguagem}">Listar</a></li>
-								<li><a class="dropdown-item" th:href="@{/linguagem/novo}">Cadastrar</a></li>
+								<li><a class="dropdown-item" th:href="@{/categories}">Listar</a></li>
+								<li><a class="dropdown-item" th:href="@{/categories/new}">Cadastrar</a></li>
 							</ul></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false">
-								Desenvolvedores </a>
+							data-bs-toggle="dropdown" aria-expanded="false"> Produtos </a>
 							<ul class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
-								<li><a class="dropdown-item" th:href="@{/desenvolvedor}">Listar</a></li>
-								<li><a class="dropdown-item"
-									th:href="@{/desenvolvedor/editar}">Cadastrar</a></li>
+								<li><a class="dropdown-item" th:href="@{/products}">Listar</a></li>
+								<li><a class="dropdown-item" th:href="@{/products/edit}">Cadastrar</a></li>
 							</ul></li>
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#"
 							id="navbarDropdownMenuLink" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> Projetos </a>
+							data-bs-toggle="dropdown" aria-expanded="false"> Fornecedores
+						</a>
 							<ul class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
-								<li><a class="dropdown-item" th:href="@{/projeto}">Listar</a></li>
-								<li><a class="dropdown-item" th:href="@{/projeto/editar}">Cadastrar</a></li>
+								<li><a class="dropdown-item" th:href="@{/suppliers}">Listar</a></li>
+								<li><a class="dropdown-item" th:href="@{/suppliers/edit}">Cadastrar</a></li>
 							</ul></li>
 					</ul>
 				</div>

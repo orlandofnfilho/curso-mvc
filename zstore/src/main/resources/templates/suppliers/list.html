@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<meta charset="UTF-8">
+<div layout:fragment="content">
+	<div class="alert alert-primary" th:if="${#lists.isEmpty(list)}">
+		Nenhum fornecedor cadastrado</div>
+	<div class="alert alert-primary" th:if="${message != null}"
+		th:text="${message}"></div>
+	<div th:if="${not #lists.isEmpty(list)}">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Telefone</th>
+					<th>E-mail</th>
+					<th>Opções</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="supplier: ${list}">
+					<td th:text="${supplier.id}"></td>
+					<td th:text="${supplier.name}"></td>
+					<td th:text="${supplier.phone}"></td>
+					<td th:text="${supplier.email}"></td>
+					<td><a class="btn btn-primary btn-sm"
+						th:href="@{/suppliers/edit(id=${supplier.id})}">Editar</a> <a
+						class="btn btn-danger btn-sm"
+						th:href="@{/suppliers/delete(id=${supplier.id})}"
+						onclick="return confirm('Você realmente deseja excluir esse fornecedor?')">Excluir</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</html>

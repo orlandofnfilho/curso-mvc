@@ -14,5 +14,4 @@ public class Starter {
 	private String name;
 	private String cpf;
 	private Integer age;
-
 }
