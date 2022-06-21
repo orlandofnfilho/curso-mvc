@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title th:text="#{recipe}"></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+</head>
+<body>
+
+	<div class="container">
+		<div class="jumbotron">
+			<h1 th:text="#{addNewRecipe}"></h1>
+		</div>
+
+		<div class="row">
+			<p class="lead">
+				<a href="/recipes" class="btn btn-primary"><span
+					class="glyphicon glyphicon-arrow-left"></span></a>
+			</p>
+		</div>
+
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6">
+				<form class="form-group" action="#" th:action="@{/recipes/new}"
+					th:object="${recipe}" method="post">
+
+					<div class="form-group">
+						<label for="name" th:text="#{recipeName}"></label> <input type="text"
+							class="form-control" th:field="*{name}" id="name"
+							placeholder="Name"> <span
+							th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+						<br />
+					</div>
+
+					<div class="form-group">
+						<label for="description" th:text="#{recipeDescription}"></label> <input
+							type="text" class="form-control" th:field="*{description}"
+							id="description" placeholder="Description"> <span
+							th:if="${#fields.hasErrors('description')}"
+							th:errors="*{description}"></span>
+					</div>
+
+					<input type="submit" th:value="#{saveButton}" class="btn btn-default">
+
+				</form>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script th:href="@{/js/bootstrap.js}"></script>
+</body>
+</html>

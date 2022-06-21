@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div class="alert alert-danger alert-dismissible mt-3" role="alert" th:if="${#fields.hasErrors('${evento.*}')}">
+    <th:block th:each="detailedError : ${#fields.detailedErrors('${evento.*}')}">
+        <div><span>[[${detailedError.message}]]</span></div>
+    </th:block>
+</div>
+</html>

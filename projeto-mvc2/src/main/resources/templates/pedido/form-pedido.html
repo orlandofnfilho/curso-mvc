@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{principal.html}">
+
+<div layout:fragment="content">
+    <div>
+        <div class="alert alert-danger alert-dismissible mt-3" role="alert" th:if="${message != null}">
+            <div th:each="m : ${message}">
+                <p>[[${m.getDefaultMessage()}]]</p>
+            </div>
+        </div>
+        <th:block th:include="fragments/mensagem-sucesso"></th:block>
+        <div class="card mt-3">
+            <div class="card-header" style="background-color: #243c7c; color: #ffff;">
+                Compra de Ingressos
+            </div>
+            <div class="card-body">
+                <th:block th:object="${evento}">
+                    <div class="text-center">
+                        <img  th:src="${evento.generoMusical.urlImagem}" height="500px" width="750px">
+                    </div>
+                    <br>
+                    <h1 th:text="${evento.nome}" class="text-center text-uppercase font-weight-bold"></h1>
+                    <br>
+                    <div class="card py-3 px-3">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Ingressos Restantes: </label>
+                                <span th:text="*{capacidade}"></span><br>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Data do Envento: </label>
+                                <span th:text="*{dataEvento}"></span><br>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Preço Unitário: R$ </label>
+                                <span th:text="*{precoIngresso}" id="preco"></span><br>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Horário: </label>
+                                <span th:text="*{horario}"></span><br>
+                            </div>
+                            <div class="col-md-4">
+                                <form method="POST" th:object="${pedido}" th:action="@{|/pedidos/novo-pedido/${evento.id}|}">
+                                    <label class="mb-3">Quantidade:  </label>
+                                    <input type="number" class="form-control"  th:field="*{quantidade}" th:errorClass="is-invalid">
+                                    <div class="invalid-feedback" th:errors="*{quantidade}"></div>
+                                    <button class="btn mt-2" type="submit" style="background-color: #243c7c; color: #ffff;">Finalizar Compra</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

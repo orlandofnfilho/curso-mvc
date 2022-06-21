@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<body>
+<div id="menu" th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #243c7c; color: #ffff;">
+        <div class="container">
+            <a class="navbar-brand" href="#" style="color: #fff;">Gerenciador de Eventos</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active hover-overlay px-3"><a class="nav-link" style="color: #fff;" th:href="@{/home}">Home
+                    </a></li>
+                    <li class="nav-item dropdown px-3" sec:authorize="hasRole('ROLE_ADMIN')"><a
+                            class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="color: #fff;"> Casa de Show </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/casaDeShow/novo}">Cadastrar</a>
+                            <a class="dropdown-item" th:href="@{/casaDeShow}">Listar</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown px-3" sec:authorize="hasRole('ROLE_ADMIN')"><a
+                            class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="color: #fff;"> Gênero Musical </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/generoMusical/novo}">Cadastrar</a> <a
+                                class="dropdown-item" th:href="@{/generoMusical}">Listar</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown px-3" sec:authorize="hasRole('ROLE_ADMIN')"><a
+                            class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="color: #fff;"> Eventos </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/eventos/novo}">Cadastrar</a> <a
+                                class="dropdown-item" th:href="@{/eventos}">Listar</a>
+                        </div>
+                    </li>
+                    <li class="nav-item active"><a class="nav-link" style="color: #fff;" th:href="@{/pedidos/historico}">Histórico
+                    </a></li>
+                    <li class="nav-item dropdown px-3" sec:authorize="hasRole('ROLE_ADMIN')"><a
+                            class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="color: #fff;"> Usuarios </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" th:href="@{/usuarios/novo}">Cadastrar</a> <a
+                                class="dropdown-item" th:href="@{/usuarios}">Listar</a>
+                        </div>
+                    </li>
+                    <li class="nav-item px-3"><a class="nav-link d-flex justify-content-end btn" onclick="document.querySelector('#form-login').submit()" sec:authorize="isAuthenticated()" style="color: #fff;" href="#">Logout
+                    </a>
+                        <form id="form-login" th:action="@{/logout}" method="post"></form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+</div>
+</body>
+</html>

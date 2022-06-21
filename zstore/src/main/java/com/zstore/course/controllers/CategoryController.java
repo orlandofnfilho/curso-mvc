@@ -80,7 +80,7 @@ public class CategoryController {
 			categoryService.delete(id);
 			redirectAttributes.addFlashAttribute("message", "Categoria excluída com sucesso.");
 		} catch (Exception e) {
-			redirectAttributes.addFlashAttribute("message", "Erro ao excluir categoria!" + e.getMessage());
+			redirectAttributes.addFlashAttribute("message", "Essa categoria está vinculada");
 		}
 
 		return mv;

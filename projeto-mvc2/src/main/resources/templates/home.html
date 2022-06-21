@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{principal.html}">
+
+<div layout:fragment="content">
+  <div class="card mt-3 mb-3">
+    <h2 class="text-center"> Bem-vindo - <span class="text-capitalize" th:text="${#authentication.name}"></span></h2>
+  </div>
+  <div class="row">
+    <div class="col-sm-2" th:each="evento: ${lista}">
+      <div class="card mb-3 shadow-sm">
+        <img class="card-img-top" th:src="${evento.generoMusical.urlImagem}" alt="Imagem de capa do card" height="200px">
+        <div class="card-body text-center">
+          <h5 class="card-title text-uppercase text-center mb-4" th:text="${evento.nome}">Título do card</h5>
+          <p class="card-text" th:text="'Valor Ingresso: R$ ' + ${#numbers.formatDecimal(evento.precoIngresso, 0, 'POINT', 2, 'COMMA')}">Ingressos Restantes</p>
+          <p class="card-text" th:text="'Ingressos Restantes: ' + ${#numbers.formatInteger(evento.capacidade,3,'POINT')}"></p>
+          <p class="card-text" th:text="'Data Evento: ' + ${#temporals.format(evento.dataEvento, 'dd/MM/yyyy')}"></p>
+          <a th:href="@{/pedidos/novo-pedido(id=${evento.id})}" class="w-100 btn btn-primary mt-3" style="background-color: #243c7c; border-color:#243c7c;">Comprar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</html>

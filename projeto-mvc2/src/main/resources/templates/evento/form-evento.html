@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{principal.html}">
+
+<div layout:fragment="content">
+    <div >
+        <div class="alert alert-danger mt-3" th:if="${#lists.isEmpty(listaCasasDeShow)}">É necessário pelo menos um casa de show cadastrada para criar uma novo evento.</div>
+        <th:block th:include="fragments/mensagem-sucesso"></th:block>
+        <th:block th:include="fragments/mensagens-erros-validacao"></th:block>
+        <div class="card mt-3">
+            <div class="card-header" style="background-color: #243c7c; color: #ffff;">
+                Cadastro de Eventos
+            </div>
+            <div class="card-body">
+                <form method="POST" th:object="${evento}" th:action="@{/eventos/novo}">
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Nome</label>
+                                <input type="text" class="form-control" th:field="*{nome}" th:errorClass="is-invalid"></input>
+                                <div class="invalid-feedback" th:errors="*{nome}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Capacidade</label>
+                                <input type="number" class="form-control" th:field="*{capacidade}" th:errorClass="is-invalid"></input>
+                                <div class="invalid-feedback" th:errors="*{capacidade}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Data Realização</label>
+                                <input type="date" class="form-control" th:field="*{dataEvento}" th:errorClass="is-invalid"></input>
+                                <div class="invalid-feedback" th:errors="*{dataEvento}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Horário</label>
+                                <input type="time" class="form-control" th:field="*{horario}" th:errorClass="is-invalid"></input>
+                                <div class="invalid-feedback" th:errors="*{horario}"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Valor Ingresso</label>
+                                <input type="number" step="0.01" class="form-control" th:field="*{precoIngresso}" th:errorClass="is-invalid"></input>
+                                <div class="invalid-feedback" th:errors="*{precoIngresso}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Casa de Show</label>
+                                <select class="form-select" th:field="*{casaDeShow}">
+                                    <option  th:each="casaDeShow : ${listaCasasDeShow}" th:value="${casaDeShow.id}" th:text="${casaDeShow.nome}" th:errorClass="is-invalid">Selecione um gênero musical...</option>
+                                    <div class="invalid-feedback" th:errors="*{casaDeShow}"></div>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label class="form-label">Gênero Musical</label>
+                                <select class="form-select" th:field="*{generoMusical}">
+                                    <option  th:each="generoMusical : ${listageneromusical}" th:value="${generoMusical.id}" th:text="${generoMusical.nome}" th:errorClass="is-invalid">Selecione um gênero musical...</option>
+                                    <div class="invalid-feedback" th:errors="*{generoMusical}"></div>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                    </div>
+                    <button class="btn mt-2" type="submit" style="background-color: #243c7c; color: #ffff;">Salvar</button>
+                    <button class="btn mt-2" type="reset" style="background-color: #243c7c; color: #ffff;">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</script>
+</div>
+</html>
