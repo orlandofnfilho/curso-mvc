@@ -1,6 +1,7 @@
 package com.thymeleaf.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -31,22 +32,20 @@ public class PersonController {
 	private PersonService personService;
 
 	@Autowired
-	ContactRepository contactRepository;
+	private ContactRepository contactRepository;
 
 	@Autowired
-	PersonRepository personRepository;
+	private PersonRepository personRepository;
 
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("person", personService.createPerson());
 		return "index";
 	}
-	
-	
-	
+
 	@PostMapping("/")
 	public String save(@Valid Person person, BindingResult bindingResult, Model model) {
-		int i=1;
+		int i = 1;
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errorMessage", "The submitted data has errors.");
 		} else {
@@ -63,7 +62,6 @@ public class PersonController {
 
 	@GetMapping("/person/{id}")
 	public String getForm(Model model, @PathVariable(required = false, name = "id") Long id) {
-
 		model.addAttribute("person", personRepository.findById(id));
 		ContactDto contactDto = new ContactDto();
 		contactDto.setContacts(contactRepository.getContactsByPersonId(id));
@@ -73,7 +71,7 @@ public class PersonController {
 
 	@PostMapping("/person")
 	public String edit(@Valid Person person, BindingResult bindingResult, RedirectAttributes redirAttrs, Model model) {
-		int i=1;
+		int i = 1;
 		ContactDto contactDto = new ContactDto();
 		contactDto.setContacts(contactRepository.getContactsByPersonId(person.getId()));
 		model.addAttribute("contactDto", contactDto);
@@ -101,7 +99,7 @@ public class PersonController {
 		model.addAttribute("metaTitle", "All Users");
 		return "list";
 	}
-	
+
 	@PostMapping("/addContact")
 	public String addContact(Person person) {
 		personService.addContact(person);
@@ -122,33 +120,34 @@ public class PersonController {
 //			model.addAttribute("listAppUser", appUserService.findAll());
 		return "redirect:/list";
 	}
-	
+
 	@GetMapping("/search")
 	public String search(Model model) {
 		return "search";
 	}
-	
+
 	@RequestMapping(value = "/persons/{surname}", method = RequestMethod.GET)
 	public String showGuestList(Model model, @PathVariable("surname") String surname) {
-	    model.addAttribute("persons", personRepository.findByFirstnameIgnoreCaseContaining(surname));
-	    
-	    return "search :: resultsList";
+		model.addAttribute("persons", personRepository.findByFirstnameIgnoreCaseContaining(surname));
+
+		return "search :: resultsList";
 	}
-	
+
 	@GetMapping("/tabs")
 	public String tabs(Model model) {
 		return "tabs";
 	}
-	
+
 	@GetMapping("/progress")
 	public String progress(Model model) {
 		return "progress";
 	}
-	
+
 	@GetMapping("/jquery")
 	public String jquery(Model model) {
 		return "jquery";
 	}
+
 	@GetMapping("/jquery2")
 	public String jquery2(Model model) {
 		return "jquery2";
